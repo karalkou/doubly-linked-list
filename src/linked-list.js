@@ -141,12 +141,7 @@ class LinkedList {
     }
 
     /* 9 Reverse DLL */
-    reverse() {
-        /*currNode = this._findLast();
-        while ( !(currNode.prev === null) ) {
-            currNode = currNode.prev;
-        }*/
-    }
+    reverse() {}
 
     /* 10
     Return index of element if data is found
