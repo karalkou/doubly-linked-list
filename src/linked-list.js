@@ -19,6 +19,7 @@ class LinkedList {
             this._tail = node;
         }
         this.length++;
+        return this;
     }
 
     /* 2 Return data from the this._head */
@@ -81,6 +82,7 @@ class LinkedList {
         }
 
         this.length++;
+        return this;
     }
 
     /* 6 Return true if list is empty */
@@ -138,10 +140,29 @@ class LinkedList {
         }
 
         this.length--;
+        return this;
     }
 
     /* 9 Reverse DLL */
-    reverse() {}
+    reverse() {
+        /* change links of nodes */
+        let startNode = this._head;
+        let nextNode = null;
+
+        for(let i=1; i<=this.length; i+=1){
+            let buffer = startNode.next;
+            startNode.next = startNode.prev;
+            startNode.prev = buffer;
+            nextNode = buffer;
+        }
+
+        /* change links of head and tail */
+        let formerHead = this._head;
+        this._head = this._tail;
+        this._tail = formerHead;
+
+        return this;
+    }
 
     /* 10
     Return index of element if data is found
