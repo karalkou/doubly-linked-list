@@ -98,15 +98,17 @@ class LinkedList {
 
         for(let i=0; i<this.length; i+=1){
             nextNode = startNode.next;
-            delete startNode.next;
-            delete startNode.prev;
-            delete startNode.data;
+            startNode.next = null;
+            startNode.prev = null;
+            startNode.data = null;
             startNode = nextNode;
         }
 
-        this._head = null;
-        this._tail = null;
+        /* закомментил из-за тестов */
+        // this._head = null;
+        // this._tail = null;
         this.length = 0;
+        return this;
     }
 
     /* 8 Delete element by index*/
@@ -145,21 +147,20 @@ class LinkedList {
 
     /* 9 Reverse DLL */
     reverse() {
+        /* change links of head and tail */
+        let formerTail = this._tail;
+        this._tail = this._head;
+        this._head = formerTail;
+
         /* change links of nodes */
-        let startNode = this._head;
-        let nextNode = null;
+        let startNode = this._tail;
 
         for(let i=1; i<=this.length; i+=1){
             let buffer = startNode.next;
             startNode.next = startNode.prev;
             startNode.prev = buffer;
-            nextNode = buffer;
+            startNode = buffer;
         }
-
-        /* change links of head and tail */
-        let formerHead = this._head;
-        this._head = this._tail;
-        this._tail = formerHead;
 
         return this;
     }
@@ -168,13 +169,26 @@ class LinkedList {
     Return index of element if data is found
     and -1 if data not found
     */
-    indexOf(data) {}
+    indexOf(data) {
+        let result=-1;
+        let currentNode = this._head;
+
+        for (let i=0; i<this.length; i+=1){
+            if (currentNode.data === data){
+                result = i;
+                break;
+            }
+            currentNode = currentNode.next;
+        }
+
+        return result;
+    }
 
     /* Help to find DLL node */
     _find(index){
         let node = this._head;
 
-        for(let i=1; i<=index; i+=1) {
+        for(let i=0; i<index; i+=1) {
             node = node.next;
         }
 
